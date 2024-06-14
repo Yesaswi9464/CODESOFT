@@ -1,0 +1,27 @@
+import re
+rules = {
+    r"(hello|hi|hey)(\s|!|\.|$)": ["Hello!", "Hey there!", "Hi!"],
+    r"what is your name?": ["You can call me ChatBot.", "I'm ChatBot, nice to meet you!"],
+    r"(.*)your name(.*)": ["You can call me ChatBot.", "I'm ChatBot, nice to meet you!"],
+    r"how are you?": ["I'm doing well, thank you!", "I'm good, thanks for asking!"],
+    r"(.*) (age|old) are you(.*)": ["I'm just a computer program, I don't have an age!"],
+    r"(.*) (weather|temperature) (.*)": ["I'm sorry, I'm just a chatbot, I don't have access to weather information."],
+    r"(.*) (location|city) (.*)": ["I exist in the digital realm, so I don't have a physical location!"],
+    r"(.*) (bye|goodbye) (.*)": ["Goodbye!", "See you later!", "Bye!"]
+}
+def respond(user_input):
+    for pattern, responses in rules.items():
+        match = re.match(pattern, user_input.lower())
+        if match:
+            response = responses[0]  # Select the first response from the list
+            return response
+    return "I'm sorry, I don't understand that."
+
+print("Welcome! I'm ChatBot. You can start chatting with me. Type 'quit' to end the conversation.")
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == 'quit':
+        print("ChatBot: Goodbye!")
+        break
+    response = respond(user_input)
+    print("ChatBot:", response)
